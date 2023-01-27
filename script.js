@@ -9,15 +9,21 @@ class NPC {
 }
 
 class creature {
-  constructor(name, level, attack, defence, hitPoints, priority, skills, image) {
+  constructor(name = "", attack, defence, hitPoints, priority, skills, image) {
   this.name = name
-  this.level = level
   this.attack = attack
   this.defence = defence
   this.hitPoints = hitPoints
   this.priority = priority
   this.skills = skills
   this.image = image
+  }
+
+  attack(otherCreature) {
+    if (this.skills.includes('hammer') && !otherCreature.skills.includes('shield')){
+      otherCreature.hitPoint -= 10;
+    }
+    
   }
 }
 
@@ -41,6 +47,10 @@ function setup() {
 createCanvas(500, 500);
   background(255);
   frameRate(20);
+  new creature("creature1", 100, 150, 200, 30, [sheild, heal], null)
+  new creature("creature2", 150, 100, 100, 130, [peirce], null)
+  new creature("creature3", 50, 50, 400, 60, [sheild, heal], null)
+  new creature("creature4", 120, 120, 120, 120, [peirce, sheild, heal], null)
 }
 
 let creaturesDefined = false;
@@ -85,6 +95,8 @@ function sendOutCreature() {
   }
 }
 
+let curCreature;
+
 function startingScreen() {
   textSize(20)
   textAlign(CENTER)
@@ -92,4 +104,9 @@ function startingScreen() {
   if (creaturesDefined == false) {
     sendOutCreature()
     }
+  creature1Button.mousePressed(() => {
+    screen = 1
+    curCreature = creature1
+		hideButtons();
+  });
 }
