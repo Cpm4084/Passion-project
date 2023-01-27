@@ -16,17 +16,26 @@ class creature {
   this.hitPoints = hitPoints
   this.critical = critical
   this.priority = priority
-  this.skills = skills
+  this.skills = []
   this.image = image
   }
 
   attack(otherCreature) {
-    if (this.skills.includes('hammer') && !otherCreature.skills.includes('shield')){
+    if (this.skills.includes('peirce') && otherCreature.skills.includes('shield')){
       otherCreature.hitPoint -= 10;
     }
     
   }
 }
+
+let creature1 = new creature("creature1", 100, 150, 200, 30, 100, ['sheild', 'heal'], null)
+let creature2 = new creature("creature2", 150, 100, 100, 130, 20, ['peirce'], null)
+let creature3 = new creature("creature3", 50, 50, 400, 60, 50, ['sheild', 'heal'], null)
+let creature4 = new creature("creature4", 120, 120, 120, 120, 50 ['peirce', 'sheild', 'heal'], null)
+let otherCreature1 = new creature("otherCreature1", 100, 150, 200, 30, 100, ['sheild', 'heal'], null)
+let otherCreature2 = new creature("otherCreature2", 150, 100, 100, 130, 20, ['peirce'], null)
+let otherCreature3 = new creature("otherCreature3", 50, 50, 400, 60, 50 ['sheild', 'heal'], null)
+let otherCreature4 = new creature("otherCreature4", 120, 120, 120, 120, 50 ['peirce', 'sheild', 'heal'], null)
 
 class encounterTable {
   constructor(creatures, chance) {
@@ -48,14 +57,6 @@ function setup() {
 createCanvas(500, 500);
   background(255);
   frameRate(20);
-  new creature("creature1", 100, 150, 200, 30, 100, [sheild, heal], null)
-  new creature("creature2", 150, 100, 100, 130, 20, [peirce], null)
-  new creature("creature3", 50, 50, 400, 60, 50, [sheild, heal], null)
-  new creature("creature4", 120, 120, 120, 120, 50 [peirce, sheild, heal], null)
-  new creature("otherCreature1", 100, 150, 200, 30, 100, [sheild, heal], null)
-  new creature("otherCreature2", 150, 100, 100, 130, 20, [peirce], null)
-  new creature("otherCreature3", 50, 50, 400, 60, 50 [sheild, heal], null)
-  new creature("otherCreature4", 120, 120, 120, 120, 50 [peirce, sheild, heal], null)
 }
 
 let creaturesDefined = false;
@@ -103,6 +104,7 @@ function sendOutCreature() {
 }
 
 let curCreature;
+let otherCreature;
 
 function startingScreen() {
   textSize(20)
@@ -114,29 +116,37 @@ function startingScreen() {
   creature1Button.mousePressed(() => {
     screen = 1
     curCreature = creature1
-    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
+    otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
   creature2Button.mousePressed(() => {
     screen = 1
     curCreature = creature2
-    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
+    otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
   creature3Button.mousePressed(() => {
     screen = 1
     curCreature = creature3
-    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
+    otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
   creature4Button.mousePressed(() => {
     screen = 1
     curCreature = creature4
-    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
+    otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
 }
 
 function battleScreen() {
-  
+  text(curCreature, 100, 100)
+  text(otherCreature, width - 100, 100)
+}
+
+function hideButtons() {
+  creature1Button.hide;
+  creature2Button.hide;
+  creature3Button.hide;
+  creature4Button.hide;
 }
