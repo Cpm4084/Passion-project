@@ -9,11 +9,12 @@ class NPC {
 }
 
 class creature {
-  constructor(name = "", attack, defence, hitPoints, priority, skills, image) {
+  constructor(name = "", attack, defence, hitPoints, critical, priority, skills, image) {
   this.name = name
   this.attack = attack
   this.defence = defence
   this.hitPoints = hitPoints
+  this.critical = critical
   this.priority = priority
   this.skills = skills
   this.image = image
@@ -47,10 +48,14 @@ function setup() {
 createCanvas(500, 500);
   background(255);
   frameRate(20);
-  new creature("creature1", 100, 150, 200, 30, [sheild, heal], null)
-  new creature("creature2", 150, 100, 100, 130, [peirce], null)
-  new creature("creature3", 50, 50, 400, 60, [sheild, heal], null)
-  new creature("creature4", 120, 120, 120, 120, [peirce, sheild, heal], null)
+  new creature("creature1", 100, 150, 200, 30, 100, [sheild, heal], null)
+  new creature("creature2", 150, 100, 100, 130, 20, [peirce], null)
+  new creature("creature3", 50, 50, 400, 60, 50, [sheild, heal], null)
+  new creature("creature4", 120, 120, 120, 120, 50 [peirce, sheild, heal], null)
+  new creature("otherCreature1", 100, 150, 200, 30, 100, [sheild, heal], null)
+  new creature("otherCreature2", 150, 100, 100, 130, 20, [peirce], null)
+  new creature("otherCreature3", 50, 50, 400, 60, 50 [sheild, heal], null)
+  new creature("otherCreature4", 120, 120, 120, 120, 50 [peirce, sheild, heal], null)
 }
 
 let creaturesDefined = false;
@@ -61,6 +66,8 @@ function draw() {
     switch (screen) {
       case 0:
         startingScreen()
+      case 1:
+        battleScreen()
     }
 }
 
@@ -107,6 +114,29 @@ function startingScreen() {
   creature1Button.mousePressed(() => {
     screen = 1
     curCreature = creature1
+    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
 		hideButtons();
   });
+  creature2Button.mousePressed(() => {
+    screen = 1
+    curCreature = creature2
+    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
+		hideButtons();
+  });
+  creature3Button.mousePressed(() => {
+    screen = 1
+    curCreature = creature3
+    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
+		hideButtons();
+  });
+  creature4Button.mousePressed(() => {
+    screen = 1
+    curCreature = creature4
+    otherCreature = random(otherCreature1, otherCreature2, otherCreature3, otherCreature4)
+		hideButtons();
+  });
+}
+
+function battleScreen() {
+  
 }
