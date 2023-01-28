@@ -8,6 +8,8 @@ class NPC {
   }
 }
 
+let sheildStrength = 0;
+
 class creature {
   constructor(name = "", attack, defence, hitPoints, critical, priority, skills, image) {
   this.name = name
@@ -20,22 +22,42 @@ class creature {
   this.image = image
   }
 
-  attack(otherCreature) {
-    if (this.skills.includes('peirce') && otherCreature.skills.includes('shield')){
-      otherCreature.hitPoint -= 10;
+  attack() {
+  if (curCreature == creature1 && otherCreature == otherCreature1) {
+    if (otherCreature1.skills.includes(sheild) && !Creature1.skills.includes(peirce)) {
+      sheildStrength = 20;
+    } else {
+      sheildStrength = 0;
     }
     
+    otherCreature1.hitPoints -= (Creature1.attack / (otherCreature1.defense / 100) - sheildStrength)
+    
+  if (otherCreature1.skills.includes(heal)) {
+    otherCreature1.hitPoints += 10
+   
+    if (Creature1.skills.includes(sheild) && !otherCreature1.skills.includes(peirce)) {
+      sheildStrength = 20;
+    } else {
+      sheildStrength = 0;
+    }
+    
+    Creature1.hitPoints -= (otherCreature1.attack / (Creature1.defense / 100) - sheildStrength)
+    
+  if (Creature1.skills.includes(heal)) {
+    Creature1.hitPoints += 10
+  }
+  }
   }
 }
 
-let creature1 = new creature("creature1", 100, 150, 200, 30, 100, ['sheild', 'heal'], null)
-let creature2 = new creature("creature2", 150, 100, 100, 130, 20, ['peirce'], null)
-let creature3 = new creature("creature3", 50, 50, 400, 60, 50, ['sheild', 'heal'], null)
-let creature4 = new creature("creature4", 120, 120, 120, 120, 50 ['peirce', 'sheild', 'heal'], null)
-let otherCreature1 = new creature("otherCreature1", 100, 150, 200, 30, 100, ['sheild', 'heal'], null)
-let otherCreature2 = new creature("otherCreature2", 150, 100, 100, 130, 20, ['peirce'], null)
-let otherCreature3 = new creature("otherCreature3", 50, 50, 400, 60, 50 ['sheild', 'heal'], null)
-let otherCreature4 = new creature("otherCreature4", 120, 120, 120, 120, 50 ['peirce', 'sheild', 'heal'], null)
+let creature1 = new creature("creature1", 100, 150, 200, 100, ['sheild', 'heal'], null)
+let creature2 = new creature("creature2", 150, 100, 100, 20, ['peirce'], null)
+let creature3 = new creature("creature3", 50, 75, 400, 50, ['sheild', 'heal'], null)
+let creature4 = new creature("creature4", 120, 120, 120, 50 ['peirce', 'sheild', 'heal'], null)
+let otherCreature1 = new creature("otherCreature1", 100, 150, 200, 100, ['sheild', 'heal'], null)
+let otherCreature2 = new creature("otherCreature2", 150, 100, 100, 20, ['peirce'], null)
+let otherCreature3 = new creature("otherCreature3", 75, 50, 400, 50 ['sheild', 'heal'], null)
+let otherCreature4 = new creature("otherCreature4", 120, 120, 120, 50 ['peirce', 'sheild', 'heal'], null)
 
 class encounterTable {
   constructor(creatures, chance) {
@@ -66,9 +88,11 @@ function draw() {
   background(200)
     switch (screen) {
       case 0:
-        startingScreen()
+        startingScreen();
+        break;
       case 1:
-        battleScreen()
+        battleScreen();
+        break;
     }
 }
 
@@ -115,38 +139,100 @@ function startingScreen() {
     }
   creature1Button.mousePressed(() => {
     screen = 1
-    curCreature = creature1
+    curCreature = creature1;
     otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
   creature2Button.mousePressed(() => {
     screen = 1
-    curCreature = creature2
-    otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
+    curCreature = creature2;
+    otherCreatureName = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
   creature3Button.mousePressed(() => {
     screen = 1
-    curCreature = creature3
-    otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
+    curCreature = creature3;
+    otherCreatureName = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
   creature4Button.mousePressed(() => {
     screen = 1
-    curCreature = creature4
-    otherCreature = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
+    curCreature = creature4;
+    otherCreatureName = random([otherCreature1, otherCreature2, otherCreature3, otherCreature4])
 		hideButtons();
   });
 }
 
+let attackButton;
+let switchButton;
+let statsButton;
+
 function battleScreen() {
-  text(curCreature, 100, 100)
-  text(otherCreature, width - 100, 100)
+  if (curCreature == creature1) {
+    textSize(15)
+   text("creature1 hitpoints = " + creature1.hitPoints, 100, 200)
+    textSize(20)
+    text("creature1", 100, 100);
+  }
+  if (curCreature == creature2) {
+    textSize(15)
+   text("creature2 hitpoints = " + creature2.hitPoints, 100, 200)
+  
+    textSize(20)
+   text("creature2", 100, 100);
+  }
+  if (curCreature == creature3) {
+    textSize(15)
+   text("creature3 hitpoints = " + creature3.hitPoints, 100, 200) 
+    textSize(20)
+    text("creature3", 100, 100);
+  }
+  if (curCreature == creature4) {
+    textSize(15);
+   text("creature4 hitpoints = " + creature4.hitPoints, 100, 200) 
+    textSize(20)
+    text("creature4", 100, 100);
+  }
+  if (otherCreature == otherCreature1) {
+    textSize(15)
+   text("otherCreature1 hitpoints = " + otherCreature1.hitPoints, width - 100, 200) 
+    textSize(20)
+    text("otherCreature1", width - 100, 100);
+  }
+  if (otherCreature == otherCreature2) {
+    textSize(15)
+   text("otherCreature2 hitpoints = " + otherCreature2.hitPoints, width - 100, 200) 
+      textSize(20)
+    text("otherCreature2", width - 100, 100);
+  }
+  if (otherCreature == otherCreature3) {
+    textSize(15)
+   text("otherCreature3 hitpoints = " + otherCreature3.hitPoints, width - 100, 200) 
+      textSize(20)
+    text("otherCreature3", width - 100, 100);
+  }
+  if (otherCreature == otherCreature4) {
+    textSize(15)
+   text("otherCreature4 hitpoints = " + otherCreature4.hitPoints, width - 100, 200); 
+      textSize(20)
+    text("otherCreature4", width - 100, 100);
+  }
+  
+  attackButton = createButton('Attack');
+  attackButton.position(width * 0.25, 400);
+  switchButton = createButton('Switch');
+  switchButton.position(width * 0.50, 400);
+  statsButton = createButton('Your Creature Stats');
+  statsButton.position(width * 0.70, 400);
+  
+  attackButton.mousePressed(() => {
+    creature.attack;
+  });
 }
 
 function hideButtons() {
-  creature1Button.hide;
-  creature2Button.hide;
-  creature3Button.hide;
-  creature4Button.hide;
+  creature1Button.hide();
+  creature2Button.hide();
+  creature3Button.hide();
+  creature4Button.hide();
 }
